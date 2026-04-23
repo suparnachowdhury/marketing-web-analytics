@@ -10,3 +10,14 @@ If we're much lower, we’ll need to reduce bids. If we’re higher,
 we can increase bids to drive more volume.
 
 */
+SELECT
+    COUNT(w.website_session_id) AS sessions,
+    COUNT(o.website_session_id) AS orders,
+    COUNT(o.website_session_id) * 100.0 
+        / COUNT(w.website_session_id) AS conversion_rate
+FROM website_sessions w
+LEFT JOIN orders o
+    ON w.website_session_id = o.website_session_id
+WHERE w.created_at < '2012-04-14'
+  AND w.utm_source = 'gsearch'
+  AND w.utm_campaign = 'nonbrand';

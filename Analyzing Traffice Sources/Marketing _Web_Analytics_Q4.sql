@@ -21,3 +21,5 @@ WHERE w.created_at < '2012-05-11'
   AND w.utm_campaign = 'nonbrand'
 GROUP BY
     w.device_type;
+    
+

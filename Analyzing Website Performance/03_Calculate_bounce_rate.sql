@@ -26,9 +26,7 @@ SELECT
 FROM first_pv_per_session fs
 LEFT JOIN   website_pageviews pv
 ON pv.website_pageview_id = fs.first_pv
-WHERE pv.pageview_url = "/home"
-GROUP BY
-		pv.website_session_id ;
+WHERE pv.pageview_url = "/home";
         
 -- SELECT * FROM sessions_with_home LIMIT 5;
 -- SELECT count(*) FROM sessions_with_home;

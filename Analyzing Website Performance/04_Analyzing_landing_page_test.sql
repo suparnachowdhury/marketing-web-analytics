@@ -43,3 +43,20 @@ FROM first_pv_per_session fs
 LEFT JOIN   website_pageviews pv
 ON pv.website_pageview_id = fs.first_pv
 WHERE pv.pageview_url  IN ('/home','/lander-1') ;
+
+-- STEP 4: then we count pageviews per session limiting to bounced sessions
+
+CREATE TEMPORARY TABLE only_bounced_session AS         
+SELECT
+		sh.website_session_id,
+        sh.landing_page,
+        COUNT(pv.website_pageview_id) AS count_of_page_viewed
+FROM sessions_landing_page sh
+LEFT JOIN website_pageviews pv
+ON sh.website_session_id = pv.website_session_id
+GROUP BY
+		sh.website_session_id,
+        sh.landing_page
+HAVING	
+		 COUNT(pv.website_pageview_id) = 1;
+

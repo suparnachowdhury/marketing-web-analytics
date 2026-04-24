@@ -31,3 +31,15 @@ AND ws.utm_source = 'gsearch'
 AND ws.utm_campaign = 'nonbrand'
 GROUP BY 
 	pv.website_session_id;
+    
+    
+-- STEP 3: Filtering out only the home and lander-1 landing pages
+    
+CREATE TEMPORARY TABLE sessions_landing_page
+SELECT 
+		pv.website_session_id,
+        pv.pageview_url as landing_page
+FROM first_pv_per_session fs
+LEFT JOIN   website_pageviews pv
+ON pv.website_pageview_id = fs.first_pv
+WHERE pv.pageview_url  IN ('/home','/lander-1') ;

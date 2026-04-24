@@ -59,4 +59,16 @@ GROUP BY
         sh.landing_page
 HAVING	
 		 COUNT(pv.website_pageview_id) = 1;
+         
+-- Final output
+SELECT 
+	 sessions_landing_page.landing_page,
+     COUNT(sessions_landing_page.website_session_id) AS sessions,
+     COUNT( only_bounced_session.website_session_id) AS bounced_sessions,
+     COUNT( only_bounced_session.website_session_id)/
+     COUNT(sessions_landing_page.website_session_id) * 100.0 AS bounce_rate
+FROM sessions_landing_page 
+LEFT JOIN only_bounced_session
+ON sessions_landing_page.website_session_id = only_bounced_session.website_session_id
+GROUP BY sessions_landing_page.landing_page;
 

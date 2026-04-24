@@ -51,6 +51,6 @@ SELECT
         COUNT(DISTINCT bs.website_session_id) AS bounced_sessions,
         COUNT(DISTINCT bs.website_session_id)/COUNT(DISTINCT fs.website_session_id)
 * 100.0 AS bounce_rate
-FROM first_pv_per_session fs	
+FROM sessions_with_home fs	
 LEFT JOIN only_bounces_session bs 
 ON fs.website_session_id = bs.website_session_id;

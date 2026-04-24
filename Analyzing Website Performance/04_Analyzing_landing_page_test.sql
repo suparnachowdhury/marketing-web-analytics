@@ -7,3 +7,10 @@ Can you pull bounce rates for the two groups so we can evaluate the new page?
  Make sure to just look at the time period where /lander-1 was getting traffic, 
  so that it is a fair comparison.
 */
+-- STEP 1: we need to find when lander-1 page first landed
+SELECT 
+	MIN(created_at) AS first_created_at,
+    MIN(website_pageview_id) AS first_pageview_id
+FROM website_pageviews
+WHERE pageview_url = '/lander-1'
+AND created_at IS NOT NULL;

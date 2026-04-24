@@ -22,6 +22,6 @@ SELECT
         COUNT(fs.website_session_id) as sessions_hitting_this_page
 FROM first_pv_per_session fs
 LEFT JOIN website_pageviews  pv
-ON fs.website_session_id = pv.website_session_id
+ON fs.first_pv = pv.website_pageview_id
 GROUP BY
 		pv.pageview_url;

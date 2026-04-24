@@ -14,3 +14,20 @@ SELECT
 FROM website_pageviews
 WHERE pageview_url = '/lander-1'
 AND created_at IS NOT NULL;
+
+-- STEP 2: Finding the landing page sessions which are the sessions with
+-- minimum pageview_ids.
+
+CREATE TEMPORARY TABLE first_pv_per_session
+SELECT
+	pv.website_session_id,
+    MIN(pv.website_pageview_id) AS first_pv
+FROM website_pageviews pv
+INNER JOIN website_sessions ws 
+ON pv.website_session_id = ws.website_session_id
+WHERE pv.website_pageview_id >= 23504
+AND pv.created_at <'2012-07-28'
+AND ws.utm_source = 'gsearch'
+AND ws.utm_campaign = 'nonbrand'
+GROUP BY 
+	pv.website_session_id;
